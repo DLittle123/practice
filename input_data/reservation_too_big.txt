@@ -1,0 +1,6 @@
+Thornton, party of 30
+Garcia, party of 2
+Owens, party of 6 dislikes Thornton, Taylor
+Smith, party of 1 dislikes Garcia
+Taylor, party of 5
+Reese, party of 7

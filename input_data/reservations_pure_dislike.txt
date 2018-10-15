@@ -1,0 +1,5 @@
+Thornton, party of 3 dislikes Taylor, Garcia, Smith, Owens
+Garcia, party of 2 dislikes Thornton, Taylor, Smith, Owens
+Owens, party of 6 dislikes Thornton, Taylor, Garcia, Smith
+Smith, party of 1 dislikes Thornton, Taylor, Garcia, Owens
+Taylor, party of 5 dislikes Thornton, Garcia, Smith, Owens
