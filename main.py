@@ -3,16 +3,7 @@ Wedding seat planner
 Author: David Little
 """
 import re
-
-"""
-main controller
-"""
-def main():
-  table_info = load_table_info()
-  party_info = load_party_info()
-
-  #all_solutions = generate_all_solutions(table_info.copy(), party_info.copy())
-
+import copy
 
 """
 Reads in the table info from a file
@@ -47,13 +38,42 @@ def load_party_info(filename='reservations.txt'):
 
 
 """
+sorter
+"""
+def sorter(list_, keyword, reverse=False):
+  return sorted(list_, key=lambda k: k[keyword], reverse=reverse)
+
+
+"""
+main controller
+"""
+def main():
+  solution = None
+  
+  table_info = load_table_info()
+  party_info = load_party_info()
+  
+  sorted_tables_small_first = sorter(copy.deepcopy(table_info), 'size_remaining')
+  sorted_tables_big_first = sorter(copy.deepcopy(table_info), 'size_remaining', reverse=True)
+  sorted_parties = sorter(party_info, 'size', reverse=True)
+
+  solution = simple_solution(sorted_tables_big_first.copy(), sorted_parties.copy())
+  if not solution:
+    solution = simple_solution(sorted_tables_small_first.copy(), sorted_parties.copy())
+  elif not solution:
+    all_solutions = generate_all_solutions(copy.deepcopy(table_info), copy.deepcopy(party_info))
+    solution = find_a_solution(all_solutions, table_info.copy())
+  print(solution)
+
+
+"""
 Simple solution
 """
 def simple_solution(tables, parties):
-  sorted_tables = sorted(tables, key=lambda k: k['size_remaining'], reverse=True)
-  sorted_parties = sorted(parties, key=lambda k: k['size'], reverse=True)
-  for party in sorted_parties:
-    for table in sorted_tables:
+  tables_list = tables.copy()
+  parties_list = parties.copy()
+  for party in parties_list:
+    for table in tables_list:
       if fits(party, table) and sits(party, table['parties']):
         table['parties'].append(party)
         table['size_remaining'] -= party['size']
@@ -62,7 +82,7 @@ def simple_solution(tables, parties):
   if parties:
     return False
   else:
-    return sorted_tables
+    return tables_list
 
 
 """
@@ -70,6 +90,7 @@ determines if there is enough space left at a table for the party
 """
 def fits(party, table):
   return int(party['size']) <= int(table['size_remaining'])
+
 
 """
 determines if we can have the party sit at the tables based on dislikes
@@ -87,13 +108,24 @@ Generates all the possible solutions excluding dislikes
 based on table size + party size
 """
 def generate_all_solutions(tables, parties):
+  digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
   solution_array = []
+  table_length = len(tables)
+  party_length = len(parties)
+  for x in range(0, table_length**party_length):
+    solution_row = [[] for i in range(table_length)]
+    seating_string = padding(x, table_length, party_length)
+    for index, value in enumerate(seating_string):
+      solution_row[digits.find(value)].append(parties[index].copy())
+    solution_array.append(solution_row)
+  return solution_array
 
 
 """
-
+adds left zero padding
 """
-
+def padding(x, base, fill_to_size):
+  return int2str(x, base).zfill(fill_to_size)
 
 
 """
@@ -108,7 +140,10 @@ def int2str(x, base):
     return "-" + int2str(-x, base)
   return ("" if x < base else int2str(x//base, base)) + digits[x % base]
 
-
+"""
+find the first solution that works from a solution array
+"""
+def find_a_solution(solution_array):
 
 
 
