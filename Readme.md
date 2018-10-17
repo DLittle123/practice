@@ -4,6 +4,9 @@ To install dependencies for pytest
 
 `pip3 install -r requirements.txt`
 
+To run tests
+`pytest` from the top directory
+
 Wedding seat planner
 
 Optional arguments `TABLENAME={filename in input_data} PARTYNAME={filename in input_data}`
@@ -18,5 +21,7 @@ Also, this is a variation of the bin packing problem.
 The approach centers on running through 2 simple solutions first followed by a brute force solution
 
 
-TODO:
+Futher enhancements:
  -  make padding function use whatever the zeroth index of digit_string is
+ -  add error checking for loading the files
+ -  
