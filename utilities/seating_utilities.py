@@ -18,7 +18,7 @@ def load_table_info(filename):
 Reads in party info from a file
 assumptions:
   reservations info is always one party per line 
-  format is "party_name, party of \d, (dislikes party_name(, party_name)*)?"
+  format is "party_name, party of {digit}, (dislikes party_name(, party_name)*)?"
 """
 def load_party_info(filename):
   party_array = []
