@@ -53,7 +53,7 @@ Generates all the possible solutions excluding dislikes
 based on table size + party size
 """
 def generate_all_solutions(tables, parties):
-  digits = digits()
+  digits = digit_string()
   solution_array = []
   table_length = len(tables)
   party_length = len(parties)
