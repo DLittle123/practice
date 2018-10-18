@@ -5,6 +5,7 @@ To install dependencies for pytest
 `pip3 install -r requirements.txt`
 
 To run tests
+
 `pytest` from the top directory
 
 Wedding seat planner
@@ -24,4 +25,5 @@ The approach centers on running through 2 simple solutions first followed by a b
 Futher enhancements:
  -  make padding function use whatever the zeroth index of digit_string is
  -  add error checking for loading the files
- -  
+ -  Figure out a better way for main.py static values, either through refactoring methods in test or main file
+ -  There is probably a better way instead of copy.deepcopy to reset stuff (maybe a helper function? loading the info each time?)
